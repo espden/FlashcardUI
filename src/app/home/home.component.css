@@ -2,3 +2,7 @@ mat-card {
     width: 200px;
     margin-bottom: 1rem;
 }
+
+button {
+    margin-bottom: 1rem;
+}

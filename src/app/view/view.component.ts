@@ -35,11 +35,6 @@ export class ViewComponent implements OnInit {
       {
         this.cardService.post(result).subscribe(response => {
           this.cardArray.push(response);
-          this.cardArray = this.cardArray.sort((a:any, b:any) => {
-            if (a.id < b.id) return 1;
-            if (a.id > b.id) return -1;
-            return 0;
-          });
           this.table.renderRows();
         });
       }
@@ -61,15 +56,9 @@ export class ViewComponent implements OnInit {
       if (result && result.delete)
       {
         this.cardArray = this.cardArray.filter((c:Card) => c.id != id);
-        this.cardArray = this.cardArray.sort((a:any, b:any) => {
-          if (a.id < b.id) return 1;
-          if (a.id > b.id) return -1;
-          return 0;
-        });
         this.table.renderRows();
         this.cardService.delete(id).subscribe();
       }
-        
     });
   }
 }
