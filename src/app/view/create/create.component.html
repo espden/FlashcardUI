@@ -1,0 +1,19 @@
+<div>
+    <h2>Create</h2>
+</div>
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Question</mat-label>
+        <textarea matInput [(ngModel)]="data.question"></textarea>
+      </mat-form-field>
+</div>
+<div>
+      <mat-form-field appearance="fill">
+        <mat-label>Answer</mat-label>
+        <textarea matInput [(ngModel)]="data.answer"></textarea>
+      </mat-form-field>
+</div>
+<div>
+    <button mat-stroked-button color="primary" [mat-dialog-close]="data">Submit</button>
+    <button mat-stroked-button (click)="onNoClick()">Cancel</button>
+</div>
