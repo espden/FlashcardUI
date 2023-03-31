@@ -35,12 +35,12 @@ export class ViewComponent implements OnInit {
       {
         this.cardService.post(result).subscribe(response => {
           this.cardArray.push(response);
-          this.table.renderRows();
           this.cardArray = this.cardArray.sort((a:any, b:any) => {
             if (a.id < b.id) return 1;
             if (a.id > b.id) return -1;
             return 0;
           });
+          this.table.renderRows();
         });
       }
     });

@@ -1,11 +1,8 @@
 <mat-card class="study">
     <mat-card-header>
-        <mat-card-title>
-            <a routerLink="/study">
-                Study Flashcards
-            </a>
-        </mat-card-title>
-            
+        <button mat-button (click)="navigateToStudy()">
+            Study Flashcards
+        </button>
     </mat-card-header>
     <mat-card-content>
         Begin a study session with the flashcards you have made.
@@ -14,11 +11,9 @@
   
 <mat-card class="view">
     <mat-card-header>
-        <mat-card-title>
-            <a routerLink="/view">
-                View Flashcards
-            </a>
-        </mat-card-title>
+        <button mat-button (click)="navigateToFlashcards()">
+            View Flashcards
+        </button>
     </mat-card-header>
     <mat-card-content>
         Browse through the flashcards you have created. View, edit, or delete your cards.
