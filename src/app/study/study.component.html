@@ -1,1 +1,28 @@
-<p>study works!</p>
+<div class="study">
+    <div class="left-arrow">
+        <button mat-button (click)="clickArrowLeft()" [disabled]="isFirstCard()">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+    </div>
+    <div class="card">
+        <mat-card>
+            <div class="header">
+                {{cardArray[index].question}}
+            </div>
+            <mat-card-content *ngIf="showAnswer">
+                {{cardArray[index].answer}}
+            </mat-card-content>
+            <mat-card-footer>
+                <button mat-stroked-button color="primary" (click)="toggleAnswer()">
+                    {{showAnswer?"Hide Answer":"View Answer"}}
+                </button>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+    <div class="right-arrow">
+        <button mat-button (click)="clickArrowRight()" [disabled]="isLastCard()">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+    </div>
+
+</div>

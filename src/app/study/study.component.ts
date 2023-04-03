@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CardService } from '../services/card/card.service';
 
 @Component({
   selector: 'app-study',
@@ -6,10 +7,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./study.component.css']
 })
 export class StudyComponent implements OnInit {
-
-  constructor() { }
+  cardArray:any = [];
+  index:number = 0;
+  showAnswer:boolean = false;
+  constructor(private cardService:CardService) { }
 
   ngOnInit(): void {
+    this.cardService.getAll().subscribe((cards:any) => {
+      this.cardArray = cards;
+    })
   }
+
+  toggleAnswer() {
+    this.showAnswer = !this.showAnswer;
+  }
+
+  clickArrowRight() {
+    if (this.index+1 < this.cardArray.length)
+    {
+      this.index++;
+      this.showAnswer = false;
+    }
+  }
+
+  clickArrowLeft() {
+    if (this.index-1 >= 0)
+    {
+      this.index--;
+      this.showAnswer = false;
+    }
+  }
+
+  isFirstCard() {
+    return (this.index == 0);
+  }
+
+  isLastCard() {
+    return (this.index == this.cardArray.length-1);
+  }
+
+
 
 }
