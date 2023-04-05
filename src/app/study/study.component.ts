@@ -12,10 +12,8 @@ export class StudyComponent implements OnInit {
   showAnswer:boolean = false;
   constructor(private cardService:CardService) { }
 
-  ngOnInit(): void {
-    this.cardService.getAll().subscribe((cards:any) => {
-      this.cardArray = cards;
-    })
+  async ngOnInit(): Promise<void> {
+    this.cardArray = await this.cardService.getAll();
   }
 
   toggleAnswer() {

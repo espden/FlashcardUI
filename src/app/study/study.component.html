@@ -4,7 +4,7 @@
             <mat-icon>chevron_left</mat-icon>
         </button>
     </div>
-    <div class="card">
+    <div class="card" *ngIf="index < cardArray.length">
         <mat-card>
             <div class="header">
                 {{cardArray[index].question}}
@@ -24,5 +24,4 @@
             <mat-icon>chevron_right</mat-icon>
         </button>
     </div>
-
 </div>

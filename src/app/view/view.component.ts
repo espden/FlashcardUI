@@ -12,52 +12,47 @@ import { MatTable } from '@angular/material/table';
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css']
 })
+
 export class ViewComponent implements OnInit {
-
-  cardArray:any;
-  displayedColumns:any;
+  cardArray:any = [];
+  columnArray:any=["action", "question", "answer"];
   @ViewChild(MatTable) table:MatTable<Card>= {} as MatTable<Card>;
-  constructor(private cardService:CardService, public dialog: MatDialog) { 
-    cardService.getAll().subscribe(cards => {
-      this.cardArray = cards;
-    })
-    this.cardArray = [];
-    this.displayedColumns=["action", "question", "answer"];
-  }
+  
+  constructor(private cardService:CardService, public dialog: MatDialog) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.cardArray = await this.cardService.getAll();
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateComponent, {data:{question:"", answer:""}});
-    dialogRef.afterClosed().subscribe(result => {
+    const dialog = this.dialog.open(CreateComponent, {data:{question:"", answer:""}});
+    dialog.afterClosed().subscribe(async result => {
       if (result)
       {
-        this.cardService.post(result).subscribe(response => {
-          this.cardArray.push(response);
-          this.table.renderRows();
-        });
+        const response = await this.cardService.post(result);
+        this.cardArray.push(response);
+        this.table.renderRows();
       }
     });
   }
 
   openEditDialog(id:string): void {
     const card = this.cardArray.find((i:any) => i.id == id);
-    const dialogRef = this.dialog.open(EditComponent, {data:card});
-    dialogRef.afterClosed().subscribe(result => {
+    const dialog = this.dialog.open(EditComponent, {data:card});
+    dialog.afterClosed().subscribe(result => {
       if(result)
-        this.cardService.put(result.id, {id:result.id, question:result.question, answer:result.answer}).subscribe();
+        this.cardService.put(result.id, {id:result.id, question:result.question, answer:result.answer});
     });
   }
 
   openDeleteDialog(id:string): void {
-    const dialogRef = this.dialog.open(DeleteComponent, {data:{delete:false}});
-    dialogRef.afterClosed().subscribe(result => {
+    const dialog = this.dialog.open(DeleteComponent, {data:{delete:false}});
+    dialog.afterClosed().subscribe(result => {
       if (result && result.delete)
       {
         this.cardArray = this.cardArray.filter((c:Card) => c.id != id);
         this.table.renderRows();
-        this.cardService.delete(id).subscribe();
+        this.cardService.delete(id);
       }
     });
   }
