@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    url:"http://localhost:5021"
+    url:"https://de-flashcardapi.azurewebsites.net"
   };
